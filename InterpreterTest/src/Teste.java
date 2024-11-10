@@ -11,6 +11,57 @@ public class Teste
         ArrayList<Expressao> ld       = new ArrayList<Expressao>();
         ArrayList<Expressao> lm       = new ArrayList<Expressao>();
 
+        //novas implementações
+
+        Expressao n = new Constante(10.0);
+        Expressao c1_new = new Constante(20.0);
+        Expressao c2_new = new Constante(40.0);
+        Expressao v1_new = new Variavel("v1", 10.0);
+        Expressao v2_new = new Variavel("v2", 100.0);
+
+        programa.add(n);
+        programa.add(c1_new);
+        programa.add(c2_new);
+        programa.add(v1_new);
+        programa.add(v2_new);
+
+        // Fatorial de n: (! n)
+        ArrayList<Expressao> listaFat = new ArrayList<Expressao>();
+        listaFat.add(n);
+        Expressao fat = new Fatorial(listaFat);
+        programa.add(fat);
+
+        // Soma: (+ c1 v1 fat)
+        ArrayList<Expressao> listaAdicao = new ArrayList<Expressao>();
+        listaAdicao.add(c1_new);
+        listaAdicao.add(v1_new);
+        listaAdicao.add(fat);
+        Expressao a_new = new Adicao(listaAdicao);
+        programa.add(a_new);
+
+        // Subtração: (- (+ c1 v1) v1)
+        ArrayList<Expressao> listaSubtracao = new ArrayList<Expressao>();
+        listaSubtracao.add(a_new);
+        listaSubtracao.add(v1_new);
+        Expressao s_new = new Subtracao(listaSubtracao);
+        programa.add(s_new);
+
+        // Divisão: (/ (- (+ c1 v1) v1) (+ c1 v1))
+        ArrayList<Expressao> listaDivisao = new ArrayList<Expressao>();
+        listaDivisao.add(s_new);
+        listaDivisao.add(a_new);
+        Expressao d_new = new Divisao(listaDivisao);
+        programa.add(d_new);
+
+        // Multiplicação: (* (+ c1 v1) (- (+ c1 v1) v1))
+        ArrayList<Expressao> listaMultiplicacao = new ArrayList<Expressao>();
+        listaMultiplicacao.add(a_new);
+        listaMultiplicacao.add(s_new);
+        Expressao m_new = new Multiplicacao(listaMultiplicacao);
+        programa.add(m_new);
+
+
+        //implementação existente
         Expressao c1 = new Constante(20.0); 
         programa.add(c1);
         

@@ -1,13 +1,17 @@
-public class Fatorial extends Expressao {
-    private Expressao operando;
+import java.util.ArrayList;
 
-    public Fatorial(Expressao operando) {
-        this.operando = operando;
+public class Fatorial extends Operador {
+
+    public Fatorial(ArrayList<Expressao> elemento) {
+        super(elemento);
+        if (elemento.size() != 1) {
+            throw new IllegalArgumentException("O operador fatorial deve ter exatamente um operando.");
+        }
     }
 
     @Override
     public double resolva() {
-        int valor = (int) operando.resolva();
+        int valor = (int) elemento.get(0).resolva();
         if (valor < 0) {
             throw new IllegalArgumentException("Fatorial de número negativo não é definido.");
         }
@@ -22,7 +26,12 @@ public class Fatorial extends Expressao {
     }
 
     @Override
+    public char simbolo() {
+        return '!';
+    }
+
+    @Override
     public String toString() {
-        return "(! " + operando.toString() + ")";
+        return "(! " + elemento.get(0).toString() + ")";
     }
 }
